@@ -11,5 +11,6 @@ module.exports = {
         Popper: ['popper.js', 'default']
       })
     ]
-  }
+  },
+  publicPath: './'
 }
