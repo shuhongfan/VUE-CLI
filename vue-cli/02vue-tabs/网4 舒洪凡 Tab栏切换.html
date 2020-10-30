@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>网4 舒洪凡</title>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.4.6/vue-router.min.js"></script>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			.box{
+				width: 500px;
+				height: 500px;
+				border: 2px solid red;
+				margin: 0 auto;
+			}
+			ul{
+				display: flex;
+			}
+			li{
+				flex: 1;
+				list-style: none;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				border-right: 2px solid red;
+				border-bottom: 2px solid red;
+			}
+			li:last-child{
+				border-right: none;
+			}
+			a{
+				text-decoration: none;
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+			.router-link-active{
+				background-color: greenyellow;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app">
+			<div class="box">
+				<ul>
+					<li>
+						<router-link to="/arrearage">待付款</router-link>
+					</li>
+					<li>
+						<router-link to="/unprocessed">待发货</router-link>
+					</li>
+					<li>
+						<router-link to="/dispatched">待收货</router-link>
+					</li>
+				</ul>
+				<router-view></router-view>
+			</div>
+		</div>
+
+		<script>
+			var Message = {
+			  template: '<h1>{{info}}</h1>',
+			  data () {
+			  	return {
+			  		info:'',
+			  		path:''
+			  	}
+			  },
+			  created () {
+			  	this.getPath()
+			  	this.pathChange()
+			  },
+			  methods:{
+			  	getPath(){
+				    console.log(this.$route.path);
+				    this.path=this.$route.path
+				},
+			  	pathChange (){
+			  		switch(this.path){
+				    	case '/arrearage': this.info="待付款商品信息"; break;
+				    	case '/unprocessed': this.info="待发货商品信息"; break;
+				    	case '/dispatched': this.info="待收货商品信息"; break;
+				    }
+			  	}
+			  },
+			  watch:{
+				  $route(to,from){
+				    console.log(to.path);
+				    this.path=to.path
+				    this.pathChange()
+				  }
+				},
+			}
+			var router=new VueRouter({
+				routes:[
+					{path:'',redirect:'/arrearage'},
+					{path:'/arrearage',component:Message},
+					{path:'/unprocessed',component:Message},
+					{path:'/dispatched',component:Message}
+				]
+			})
+			new Vue({
+				el: '#app',
+				router
+			})
+		</script>
+	</body>
+
+</html>

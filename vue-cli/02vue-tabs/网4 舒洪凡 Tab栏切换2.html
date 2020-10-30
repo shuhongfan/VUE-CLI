@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>网4 舒洪凡</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.4.6/vue-router.min.js"></script>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+            border: 2px solid red;
+            margin: 0 auto;
+        }
+        ul{
+            display: flex;
+        }
+        li{
+            flex: 1;
+            list-style: none;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-right: 2px solid red;
+            border-bottom: 2px solid red;
+        }
+        li:last-child{
+            border-right: none;
+        }
+        a{
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        .router-link-active{
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div class="box">
+        <ul>
+            <li>
+                <router-link to="/arrearage">待付款</router-link>
+            </li>
+            <li>
+                <router-link to="/unprocessed">待发货</router-link>
+            </li>
+            <li>
+                <router-link to="/dispatched">待收货</router-link>
+            </li>
+        </ul>
+        <router-view></router-view>
+    </div>
+</div>
+
+<script>
+    var Arrearage={
+        template: '<h1>待付款商品信息</h1>'
+    }
+    var Unprocessed={
+        template: '<h1>待发货商品信息</h1>'
+    }
+    var Dispatched={
+        template: '<h1>待收货商品信息</h1>'
+    }
+    var router=new VueRouter({
+        routes:[
+            {path:'',redirect:'/arrearage'},
+            {path:'/arrearage',component:Arrearage},
+            {path:'/unprocessed',component:Unprocessed},
+            {path:'/dispatched',component:Dispatched}
+        ]
+    })
+    new Vue({
+        el: '#app',
+        router
+    })
+</script>
+</body>
+
+</html>
